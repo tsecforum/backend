@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import NGO,Event
+from .models import NGO,Event,Volunteer,Donation
 from django.core import serializers
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth.models import User
@@ -27,9 +27,6 @@ def dashboard(request):
 		}
 		list_events.append(dict_event)
 	return JsonResponse(list_events,safe=False)
-	
-
-	return HttpResponse(events_json,content_type='application/json')
 
 def filter_by(request) :
 
@@ -40,30 +37,40 @@ def filter_by(request) :
 
 def volunteering(request):
 
+	username = request.GET.get('username')
 	event_id = request.GET.get('event_id')
-	print(event_id)
-	user = request.user
+	ngo_title = request.GET.get('ngo_title')
+	
+	user = User.objects.get(username=username)
 	event = Event.objects.get(id = event_id)
-	print("Helllo",event)
 	ngo = event.ngo
-	print(ngo)
-	print(ngo.id)
 
-	volunteer = Volunteer(user.id,event_id,ngo.id)
+	volunteer = Volunteer(user_id=user.id,event_id=event_id,ngo_id=ngo.id)
 	volunteer.save()
 
 	return JsonResponse({'Response':'Sent'})
 
 def donating(request):
 
-	user = request.user
+	username = request.GET.get('username')
 	event_id = request.GET.get('event_id')
-	amount = request.GET.get('amount')
-	
-	event = Event.objects.get(id=event_id)
-	ngo_id = event.ngo.id
+	ngo_title = request.GET.get('ngo_title')
 
-	donation = Donation(user.id,event.id,ngo_id,amount)
+	amount = request.GET.get('amount')
+
+	user = User.objects.get(username=username)
+	event = Event.objects.get(id=event_id)
+	ngo = event.ngo
+
+	donation = Donation(user_id=user.id,event_id=event.id,ngo_id=ngo.id,amount=amount)
 	donation.save()
 
 	return JsonResponse({'Donation':'Successful'})
+
+def return_donations(request):
+	username = request.GET.get('username')
+	user = User.objects.get(username = username)
+
+	donations = Donation.objects.filter(user_id=user.id)
+
+	return serializers.serialize('json',donations)

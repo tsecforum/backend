@@ -15,7 +15,6 @@ class NGO(models.Model):
 		return self.title
 
 class Event(models.Model) : 
-	
 	title = models.CharField(max_length=500)
 	ngo = 	models.ForeignKey(NGO,on_delete = models.CASCADE)
 	location = models.CharField(max_length=200)
@@ -31,14 +30,14 @@ class Event(models.Model) :
 
 class Volunteer(models.Model) :
 
-	user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
-	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING)
-	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING)
+	user = models.ForeignKey(User,on_delete=models.DO_NOTHING,blank=True)
+	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING,blank=True)
+	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING,blank=True)
 
 class Donation(models.Model):
-	user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
-	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING)
-	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING)
+	user = models.ForeignKey(User,on_delete=models.DO_NOTHING,blank=True)
+	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING,blank=True)
+	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING,blank=True)
 	amount = models.CharField(max_length=50)
 
 	def __str__(self):
