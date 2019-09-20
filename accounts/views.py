@@ -40,8 +40,11 @@ def register(request) :
 def login(request) :
 
 #	if request.method == 'POST':
-	username = request.GET.get(username)
-	password = request.GET.get(password)
+	#username = request.GET.get('username','')
+	#password = request.GET.get('password','')
+
+	username = 'test'
+	password = 'test@123'
 
 	print(username,password)
 	dic = {'login':'unsuccessful','error':'Invalid Credentials'}
