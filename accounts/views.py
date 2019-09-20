@@ -40,9 +40,10 @@ def register(request) :
 def login(request) :
 
 #	if request.method == 'POST':
-	username = request.GET.get('username','')
-	password = request.GET.get('password','')
+	username = request.GET.get(username)
+	password = request.GET.get(password)
 
+	print(username,password)
 	dic = {'login':'unsuccessful','error':'Invalid Credentials'}
 	user = auth.authenticate(username = username,password = password)
 
@@ -50,7 +51,7 @@ def login(request) :
 		auth.login(request,user)
 		dic['login'] = 'successful'
 		dic['error'] = 'no error'
-		return [{'login':'successful','error':'valid Credentials'}]
+		return JsonResponse(dic)
 	else :
 		return JsonResponse(dic)
 #	else :
