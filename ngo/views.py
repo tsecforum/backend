@@ -8,6 +8,6 @@ from django.http import HttpResponse
 def dashboard(request):
 	
 	events = Event.objects.order_by('-post_date')
-	events_json = serializers.serialize('json',qs)
+	events_json = serializers.serialize('json',events)
 
 	return HttpResponse(events_json,content_type='application/json')
