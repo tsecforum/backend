@@ -24,6 +24,7 @@ class Event(models.Model) :
 	photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
 	amount = models.IntegerField(default = 0)
 	post_date = models.DateTimeField(default = datetime.now(),blank = True)
+	actual_url = models.CharField(max_length=500,blank=True)
 
 	def __str__(self) : 
 		return self.title
