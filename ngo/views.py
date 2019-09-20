@@ -68,10 +68,20 @@ def donating(request):
 	return JsonResponse({'Donation':'Successful'})
 
 def return_donations(request):
-	
+
 	username = request.GET.get('username')
 	user = User.objects.get(username=username)
 
 	donations = Donation.objects.filter(user_id=user.id)
+	list_donations = []
 
-	return serializers.serialize('json',donations)
+	for donation in donations :
+		dict_donation = {
+			'event' : donation.event.title,
+			'ngo' : donation.ngo.title,
+			'amount' : donation.amount
+		}
+		list_donations.append(dict_donation)
+
+	return JsonResponse(list_donations,safe=False)
+
