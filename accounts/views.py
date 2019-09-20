@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import Profile
 
 # Create your views here.
 @csrf_exempt
@@ -61,5 +62,15 @@ def logout(request):
 	dic = {'logout':'successful'}
 	return JsonResponse(dic)
 
-def index(request):
-	return HttpResponse("Working")
+def send_profile(request):
+
+	user = request.user
+	profile = Profile.objects.get(user = user.id)
+	dic = {
+		'id' : user.id,
+		'first_name' : user.first_name,
+		'username' : user.username,
+		'phone number' : profile.contact_no,
+		'email id' : user.email
+	}
+	return JsonResponse(dic)

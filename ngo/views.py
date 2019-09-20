@@ -40,14 +40,16 @@ def filter_by(request) :
 
 def volunteering(request):
 
-	event_title = request.GET.get('event_title')
-	print(event_title)
+	event_id = request.GET.get('event_id')
+	print(event_id)
 	user = request.user
-	event = Event.objects.get(title = event_title)
-	ngo_id = event.ngo.id
-	print(ngo_id)
+	event = Event.objects.get(id = event_id)
+	print("Helllo",event)
+	ngo = event.ngo
+	print(ngo)
+	print(ngo.id)
 
-	volunteer = Volunteer(user.id,event.id,ngo_id)
+	volunteer = Volunteer(user.id,event_id,ngo.id)
 	volunteer.save()
 
 	return JsonResponse({'Response':'Sent'})
@@ -55,10 +57,10 @@ def volunteering(request):
 def donating(request):
 
 	user = request.user
-	event_title = request.GET.get('event_title')
+	event_id = request.GET.get('event_id')
 	amount = request.GET.get('amount')
 	
-	event = Event.objects.get(title=event_title)
+	event = Event.objects.get(id=event_id)
 	ngo_id = event.ngo.id
 
 	donation = Donation(user.id,event.id,ngo_id,amount)
