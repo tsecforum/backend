@@ -8,12 +8,12 @@ from .models import Profile
 # Create your views here.
 @csrf_exempt
 def register(request) :
-	first_name = request.POST['name']
-	username = request.POST['username']
-	email = request.POST['email']
-	contact_number = request.POST['contact_number']
-	password = request.POST['password']
-	password2 = request.POST['password2']
+	first_name = request.GET.get('name')
+	username = request.GET.get('username')
+	email = request.GET.get('email')
+	contact_number = request.GET.get('contact_number')
+	password = request.GET.get('password')
+	password2 = request.GET.get('password2')
 	dic = {'register':'unsuccessful','error':'no error'}
 
 	if password == password2 :
@@ -40,8 +40,8 @@ def register(request) :
 def login(request) :
 
 #	if request.method == 'POST':
-	username = request.POST['username']
-	password = request.POST['password']
+	username = request.GET.get('username','')
+	password = request.GET.get('password','')
 
 	dic = {'login':'unsuccessful','error':'Invalid Credentials'}
 	user = auth.authenticate(username = username,password = password)
