@@ -12,7 +12,7 @@ admin.site.register(NGO,NGOAdmin)
 
 class EventAdmin(admin.ModelAdmin):
 
-	list_display = ('id','title','location','post_date','amount')
+	list_display = ('id','title','location','category','post_date','amount')
 	list_display_links = ('id','title')
 	search_fields = ('title','description','location')
 
