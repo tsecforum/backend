@@ -29,11 +29,17 @@ class Event(models.Model) :
 	def __str__(self) : 
 		return self.title
 
-class Inquiries(models.Model) :
+class Volunteer(models.Model) :
 
 	user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
 	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING)
+	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING)
+
+class Donation(models.Model):
+	user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
+	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING)
+	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING)
 	amount = models.CharField(max_length=50)
 
 	def __str__(self):
-		return self.title
+		return self.amount

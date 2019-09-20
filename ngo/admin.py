@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NGO,Event
+from .models import NGO,Event,Volunteer,Donation
 # Register your models here.
 class NGOAdmin(admin.ModelAdmin):
 
@@ -17,3 +17,17 @@ class EventAdmin(admin.ModelAdmin):
 	search_fields = ('title','description','location')
 
 admin.site.register(Event,EventAdmin)
+
+class VolunteerAdmin(admin.ModelAdmin):
+	list_display = ('user','event','ngo')
+	list_display_links = ()
+	search_fields = ('ngo__title',)
+
+admin.site.register(Volunteer,VolunteerAdmin)
+
+class DonationAdmin(admin.ModelAdmin):
+	list_display = ('user','event','ngo','amount')
+	list_display_links = ()
+	search_fields = ('ngo__title',)
+
+admin.site.register(Donation,DonationAdmin)
