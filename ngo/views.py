@@ -18,7 +18,8 @@ def dashboard(request):
 			},
 			'photo_main':"https://serene-brushlands-85477"+event.photo_main.url,
 			'category':event.category,
-			'description':event.description
+			'description':event.description,
+			'actual_url':event.actual_url
 		}
 		list_events.append(dict_event)
 	return JsonResponse(list_events,safe=False)
