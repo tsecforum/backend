@@ -40,11 +40,8 @@ def register(request) :
 def login(request) :
 
 #	if request.method == 'POST':
-	#username = request.GET.get('username','')
-	#password = request.GET.get('password','')
-
-	username = 'test'
-	password = 'test@123'
+	username = request.GET.get('username','')
+	password = request.GET.get('password','')
 
 	print(username,password)
 	dic = {'login':'unsuccessful','error':'Invalid Credentials'}
@@ -68,7 +65,8 @@ def logout(request):
 
 def send_profile(request):
 
-	user = request.user
+	username = request.GET.get('username')
+	user = User.objects.get(username = username)
 	profile = Profile.objects.get(user = user.id)
 	dic = {
 		'id' : user.id,
