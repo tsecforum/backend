@@ -68,8 +68,9 @@ def donating(request):
 	return JsonResponse({'Donation':'Successful'})
 
 def return_donations(request):
+	
 	username = request.GET.get('username')
-	user = User.objects.get(username = username)
+	user = User.objects.get(username=username)
 
 	donations = Donation.objects.filter(user_id=user.id)
 

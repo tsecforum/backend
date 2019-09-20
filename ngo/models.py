@@ -39,6 +39,3 @@ class Donation(models.Model):
 	event = models.ForeignKey(Event,on_delete=models.DO_NOTHING,blank=True)
 	ngo = models.ForeignKey(NGO,on_delete=models.DO_NOTHING,blank=True)
 	amount = models.CharField(max_length=50)
-
-	def __str__(self):
-		return self.amount
