@@ -50,7 +50,7 @@ def login(request) :
 		auth.login(request,user)
 		dic['login'] = 'successful'
 		dic['error'] = 'no error'
-		return JsonResponse(dic)
+		return [{'login':'successful','error':'valid Credentials'}]
 	else :
 		return JsonResponse(dic)
 #	else :
