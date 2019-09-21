@@ -6,6 +6,22 @@ from django.http import JsonResponse,HttpResponse
 from django.contrib.auth.models import User
 from .models import Volunteer
 
+
+def show_ngos(request):
+	event_id = request.GET.get('event_id','')
+	event = Event.objects.get(id=event_id)
+	ngo = event.ngo;
+
+	dict_ngo = {
+		'id':ngo.id,
+		'title' : ngo.title,
+		'pic_url': ngo.pic_url,
+		'is_verified': ngo.is_verified,
+		'post_date' : ngo.post_date
+	}
+
+	return JsonResponse(dict_ngo)
+
 # Create your views here.
 def dashboard(request):
 	
@@ -77,6 +93,7 @@ def return_donations(request):
 
 	for donation in donations :
 		dict_donation = {
+			'id':donation.id,
 			'event' : donation.event.title,
 			'ngo' : donation.ngo.title,
 			'amount' : donation.amount

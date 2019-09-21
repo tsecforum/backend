@@ -10,6 +10,7 @@ class NGO(models.Model):
 	photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
 	is_verified = models.BooleanField(default = False)
 	post_date = models.DateTimeField(default = datetime.now(),blank = True)
+	pic_url =  models.CharField(max_length=500,blank=True)
 
 	def __str__(self) : 
 		return self.title
