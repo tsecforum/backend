@@ -5,6 +5,7 @@ from django.core import serializers
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth.models import User
 from .models import Volunteer
+from django.db.models import Q
 
 
 def show_ngos(request):
@@ -102,4 +103,29 @@ def return_donations(request):
 		list_donations.append(dict_donation)
 
 	return JsonResponse(list_donations,safe=False)
+
+def search(request):
+
+	qs = Event.objects.order_by()
+
+	keywords = request.GET.get('keywords','')
+	querys = qs.filter(Q(description__icontains=keywords)|Q(location__icontains=keywords)|Q(title__icontains=keywords)|Q(category__icontains=keywords))
+
+	list_events = [] 
+	for event in querys :
+		dict_event = {
+			'id':event.id,
+			'title':event.title,
+			'ngo':{
+				'title': event.ngo.title,
+				'phone_number': event.ngo.phone_number
+			},
+			'photo_main':"https://serene-brushlands-85477"+event.photo_main.url,
+			'category':event.category,
+			'description':event.description,
+			'location':event.location,
+			'actual_url':event.actual_url
+		}
+		list_events.append(dict_event)
+	return JsonResponse(list_events,safe=False)
 
