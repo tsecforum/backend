@@ -27,7 +27,7 @@ def register(request) :
 				dic['error'] = "Email id already exists"
 				return JsonResponse(dic)
 			else :
-				user = User.objects.create_user(username = username,password = password,email = email,first_name = name,last_name = last_name)
+				user = User.objects.create_user(username = username,password = password,email = email,first_name = first_name)
 				user.save()
 				auth.login(request,user)
 				dic['register'] = 'successful'
