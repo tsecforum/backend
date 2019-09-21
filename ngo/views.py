@@ -16,6 +16,7 @@ def show_ngos(request):
 		'id':ngo.id,
 		'title' : ngo.title,
 		'pic_url': ngo.pic_url,
+		'description':ngo.description,
 		'is_verified': ngo.is_verified,
 		'post_date' : ngo.post_date
 	}
